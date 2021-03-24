@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import UserOutput from "./components/UserOutput";
+import UserInput from "./components/UserInput";
 
 function App() {
+  const [name, setName] = useState({
+    userName: "AKumah",
+  });
+
+  const ManageInput = (e) => {
+    setName({
+      userName: e.target.value,
+    });
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <UserInput ManageInput={ManageInput} presentName={name.userName}
+      style={style}
+      />
+      <UserOutput name={name.userName} />
+      <UserOutput name={name.userName} />
+      <UserOutput name="Paul" />
     </div>
   );
 }
+
+const style = {
+  
+    border: "1px solid yellow",
+  
+};
 
 export default App;
