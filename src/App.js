@@ -1,34 +1,51 @@
 import React, { useState } from "react";
 import UserOutput from "./components/UserOutput";
-import UserInput from "./components/UserInput";
 
 function App() {
-  const [name, setName] = useState({
-    userName: "AKumah",
-  });
+  const [name, setName] = useState([
+    { name: "alice", id: 1 },
+    { name: "yaya", id: 2 },
+    { name: "frank", id: 3 },
+  ]);
+  const [showPerson, setShowPerson] = useState(false);
 
-  const ManageInput = (e) => {
-    setName({
-      userName: e.target.value,
-    });
+  const personToggler = () => {
+    setShowPerson(!showPerson);
   };
+  let person = null;
+
+  const onDelete = (id) => {
+    const newPerson = [...name];
+    
+    newPerson.splice(id,1)
+    setName(newPerson)
+   console.log(newPerson);
+   console.log(name);
+  };
+
+  if (showPerson) {
+    person = (
+      <div>
+        {name.map((personName, index) => {
+          return (
+            <div key={personName.name}>
+              <UserOutput
+                name={personName.name}
+                click={() => onDelete(index)}
+              />
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
 
   return (
     <div>
-      <UserInput ManageInput={ManageInput} presentName={name.userName}
-      style={style}
-      />
-      <UserOutput name={name.userName} />
-      <UserOutput name={name.userName} />
-      <UserOutput name="Paul" />
+      <button onClick={personToggler}>Click to Show</button>
+      {person}
     </div>
   );
 }
-
-const style = {
-  
-    border: "1px solid yellow",
-  
-};
 
 export default App;
