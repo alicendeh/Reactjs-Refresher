@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import UserOutput from "./components/UserOutput";
+import "./App.css";
 
 function App() {
   const [name, setName] = useState([
@@ -8,6 +9,7 @@ function App() {
     { name: "frank", id: 3 },
   ]);
   const [showPerson, setShowPerson] = useState(false);
+  const [clr, setClr] = useState("red");
 
   const personToggler = () => {
     setShowPerson(!showPerson);
@@ -16,11 +18,8 @@ function App() {
 
   const onDelete = (id) => {
     const newPerson = [...name];
-    
-    newPerson.splice(id,1)
-    setName(newPerson)
-   console.log(newPerson);
-   console.log(name);
+    newPerson.splice(id, 1);
+    setName(newPerson);
   };
 
   if (showPerson) {
@@ -39,13 +38,34 @@ function App() {
       </div>
     );
   }
+  let count = name.length
+  console.log(count);
 
   return (
     <div>
-      <button onClick={personToggler}>Click to Show</button>
+      <h1
+      style= {{
+        color:(count>=3)?"black":"red",
+        fontWeight:"bold",
+      }}
+      >Its really working</h1>
+      <button
+        onClick={personToggler}
+        style={{
+          backgroundColor: showPerson ? "red" : "green",
+          padding: 12,
+          color: "white",
+          fontSize: 22,
+        }}
+      >
+        Click to Show
+      </button>
       {person}
     </div>
   );
 }
 
+
+
 export default App;
+
